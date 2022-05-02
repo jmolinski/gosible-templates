@@ -2,7 +2,6 @@ package tokens
 
 import (
 	"fmt"
-	gojinja2 "github.com/jmolinski/gosible-templates"
 	"github.com/jmolinski/gosible-templates/config"
 	"regexp"
 	"strings"
@@ -40,8 +39,8 @@ type Lexer struct {
 // TODO gosible: set from env
 type rawStmt map[string]*regexp.Regexp
 
-// NewLexer creates a new scanner for the input string.
-func NewLexer(input string, cfg *config.Config) *Lexer {
+// NewLexerWithConfig creates a new scanner for the input string.
+func NewLexerWithConfig(input string, cfg *config.Config) *Lexer {
 	// Rewritten tokens.NewLexer to use custom config.
 	return &Lexer{
 		Input:  input,
@@ -54,9 +53,19 @@ func NewLexer(input string, cfg *config.Config) *Lexer {
 	}
 }
 
-func Lex(input string, env *gojinja2.Environment) *Stream {
+func NewLexer(input string) *Lexer {
+	return NewLexerWithConfig(input, config.DefaultConfig)
+}
+
+func Lex(input string) *Stream {
+	l := NewLexer(input)
+	l.Run()
+	return NewStream(l.Tokens)
+}
+
+func LexWithConfig(input string, cfg *config.Config) *Stream {
 	// Rewritten tokens.Lex to use custom config.
-	l := NewLexer(input, env.Config)
+	l := NewLexerWithConfig(input, cfg)
 	l.Run()
 	return NewStream(l.Tokens)
 }

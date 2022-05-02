@@ -228,7 +228,7 @@ func TestLexer(t *testing.T) {
 		t.Run(test.name, func(t *testing.T) {
 			lexer := tokens.NewLexer(test.input)
 			go lexer.Run()
-			toks := tokenSlice(lexer.Tokens)
+			toks := lexer.Tokens
 
 			assert := assert.New(t)
 			assert.Equal(len(test.expected), len(toks))
@@ -288,7 +288,7 @@ func TestStreamSlice(t *testing.T) {
 		t.Run(test.name, func(t *testing.T) {
 			lexer := tokens.NewLexer(test.input)
 			go lexer.Run()
-			toks := tokenSlice(lexer.Tokens)
+			toks := lexer.Tokens
 
 			stream := tokens.NewStream(toks)
 			expected, _ := asStreamResult(test.expected)
@@ -314,7 +314,7 @@ func TestLexerPosition(t *testing.T) {
 
 	lexer := tokens.NewLexer(positionsCase)
 	go lexer.Run()
-	toks := tokenSlice(lexer.Tokens)
+	toks := lexer.Tokens
 	assert.Equal([]*tokens.Token{
 		&tokens.Token{tokens.Data, "Hello\n", 0, 1, 1},
 		&tokens.Token{tokens.CommentBegin, "{#", 6, 2, 1},
