@@ -1,14 +1,13 @@
+//go:build bench
 // +build bench
 
-package gonja_test
+package gojinja2_test
 
 import (
 	"io/ioutil"
 	"testing"
 
-	"github.com/noirbizarre/gonja"
-
-	tu "github.com/noirbizarre/gonja/testutils"
+	tu "github.com/jmolinski/gosible-templates/testutils"
 )
 
 func BenchmarkFromCache(b *testing.B) {

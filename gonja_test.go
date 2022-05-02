@@ -1,4 +1,4 @@
-package gonja_test
+package gojinja2_test
 
 import (
 	"flag"

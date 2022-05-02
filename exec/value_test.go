@@ -6,7 +6,7 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/noirbizarre/gonja/exec"
+	"github.com/jmolinski/gosible-templates/exec"
 	"github.com/stretchr/testify/assert"
 )
 

@@ -1,8 +1,8 @@
 package parser
 
 import (
-	"github.com/noirbizarre/gonja/nodes"
-	"github.com/noirbizarre/gonja/tokens"
+	"github.com/jmolinski/gosible-templates/nodes"
+	"github.com/jmolinski/gosible-templates/tokens"
 )
 
 type TemplateParser func(string) (*nodes.Template, error)

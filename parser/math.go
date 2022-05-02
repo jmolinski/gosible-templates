@@ -5,8 +5,8 @@ import (
 
 	"fmt"
 
-	"github.com/noirbizarre/gonja/nodes"
-	"github.com/noirbizarre/gonja/tokens"
+	"github.com/jmolinski/gosible-templates/nodes"
+	"github.com/jmolinski/gosible-templates/tokens"
 	log "github.com/sirupsen/logrus"
 )
 

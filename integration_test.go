@@ -1,11 +1,12 @@
+//go:build integration
 // +build integration
 
-package gonja_test
+package gojinja2_test
 
 import (
 	"testing"
 
-	tu "github.com/noirbizarre/gonja/testutils"
+	tu "github.com/jmolinski/gosible-templates/testutils"
 )
 
 func TestTemplates(t *testing.T) {

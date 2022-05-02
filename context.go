@@ -1,7 +1,7 @@
-package gonja
+package gojinja2
 
 // import (
-// 	"github.com/noirbizarre/gonja/exec"
+// 	"github.com/jmolinski/gosible-templates/exec"
 // )
 
 type Context map[string]interface{}

@@ -12,8 +12,8 @@ import (
 
 	"github.com/pkg/errors"
 
-	"github.com/noirbizarre/gonja/exec"
-	u "github.com/noirbizarre/gonja/utils"
+	"github.com/jmolinski/gosible-templates/exec"
+	u "github.com/jmolinski/gosible-templates/utils"
 )
 
 func init() {

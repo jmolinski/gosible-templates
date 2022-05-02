@@ -3,6 +3,7 @@ package testutils
 import (
 	"bytes"
 	"fmt"
+	gojinja2 "github.com/jmolinski/gosible-templates"
 	"io/ioutil"
 	"math/rand"
 	"path"
@@ -13,23 +14,22 @@ import (
 
 	"github.com/pmezard/go-difflib/difflib"
 
-	"github.com/noirbizarre/gonja"
-	"github.com/noirbizarre/gonja/loaders"
+	"github.com/jmolinski/gosible-templates/loaders"
 
-	u "github.com/noirbizarre/gonja/utils"
+	u "github.com/jmolinski/gosible-templates/utils"
 )
 
-func TestEnv(root string) *gonja.Environment {
-	cfg := gonja.NewConfig()
+func TestEnv(root string) *gojinja2.Environment {
+	cfg := gojinja2.NewConfig()
 	cfg.KeepTrailingNewline = true
 	loader := loaders.MustNewFileSystemLoader(root)
-	env := gonja.NewEnvironment(cfg, loader)
+	env := gojinja2.NewEnvironment(cfg, loader)
 	env.Autoescape = true
 	env.Globals.Set("lorem", u.Lorem) // Predictable random content
 	return env
 }
 
-func GlobTemplateTests(t *testing.T, root string, env *gonja.Environment) {
+func GlobTemplateTests(t *testing.T, root string, env *gojinja2.Environment) {
 	pattern := filepath.Join(root, `*.tpl`)
 	matches, err := filepath.Glob(pattern)
 	// env := TestEnv(root)

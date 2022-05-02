@@ -1,6 +1,6 @@
-package gonja
+package gojinja2
 
-import "github.com/noirbizarre/gonja/config"
+import "github.com/jmolinski/gosible-templates/config"
 
 type Config config.Config
 

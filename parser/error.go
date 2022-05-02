@@ -1,12 +1,12 @@
 package parser
 
 import (
+	"github.com/goph/emperror"
+	"github.com/jmolinski/gosible-templates/tokens"
 	// "bufio"
 	// "fmt"
 	// "os"
 	"github.com/pkg/errors"
-	"github.com/goph/emperror"
-	"github.com/noirbizarre/gonja/tokens"
 )
 
 // Error produces a nice error message and returns an error-object.

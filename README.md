@@ -1,4 +1,10 @@
-# Gonja
+
+# gojinja2
+
+This is a jinja2-like template engine for Go. It is a fork of the Gonja template engine.
+It has fixes, improvements and customisations for Gosible - an experimental Ansible reimplementation in Go.
+
+---
 
 [![GoDoc](https://godoc.org/github.com/noirbizarre/gonja?status.svg)](https://godoc.org/github.com/noirbizarre/gonja)
 [![Build Status](https://travis-ci.org/noirbizarre/gonja.svg?branch=master)](https://travis-ci.org/noirbizarre/gonja)

@@ -28,4 +28,4 @@
 //     }
 //     fmt.Println(out) // Output: Hello Fred!
 //
-package gonja
+package gojinja2

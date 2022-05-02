@@ -5,8 +5,8 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/noirbizarre/gonja/tokens"
-	u "github.com/noirbizarre/gonja/utils"
+	"github.com/jmolinski/gosible-templates/tokens"
+	u "github.com/jmolinski/gosible-templates/utils"
 )
 
 // ----------------------------------------------------------------------------

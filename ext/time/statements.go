@@ -1,5 +1,5 @@
 package time
 
-import "github.com/noirbizarre/gonja/exec"
+import "github.com/jmolinski/gosible-templates/exec"
 
 var Statements = exec.StatementSet{}

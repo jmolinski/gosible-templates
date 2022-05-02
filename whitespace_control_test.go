@@ -1,16 +1,16 @@
-package gonja_test
+package gojinja2_test
 
 import (
 	"bytes"
 	"fmt"
+	gojinja2 "github.com/jmolinski/gosible-templates"
 	"io/ioutil"
 	"testing"
 
-	"github.com/noirbizarre/gonja"
-	"github.com/noirbizarre/gonja/config"
+	"github.com/jmolinski/gosible-templates/config"
 	"github.com/pmezard/go-difflib/difflib"
 
-	tu "github.com/noirbizarre/gonja/testutils"
+	tu "github.com/jmolinski/gosible-templates/testutils"
 )
 
 var testCases = []struct {
@@ -39,7 +39,7 @@ func TestWhiteSpace(t *testing.T) {
 				}
 			}()
 			cfg := config.NewConfig()
-			env := gonja.NewEnvironment(cfg, gonja.DefaultLoader)
+			env := gojinja2.NewEnvironment(cfg, gojinja2.DefaultLoader)
 			env.TrimBlocks = test.trim_blocks
 			env.LstripBlocks = test.lstrip_blocks
 			env.KeepTrailingNewline = test.keep_trailing_newline

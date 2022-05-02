@@ -7,8 +7,8 @@ import (
 
 	"github.com/pkg/errors"
 
-	"github.com/noirbizarre/gonja/nodes"
-	"github.com/noirbizarre/gonja/tokens"
+	"github.com/jmolinski/gosible-templates/nodes"
+	"github.com/jmolinski/gosible-templates/tokens"
 )
 
 type StatementParser func(parser *Parser, args *Parser) (nodes.Statement, error)

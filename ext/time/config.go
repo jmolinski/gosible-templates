@@ -3,7 +3,7 @@ package time
 import (
 	arrow "github.com/bmuller/arrow/lib"
 
-	"github.com/noirbizarre/gonja/config"
+	"github.com/jmolinski/gosible-templates/config"
 )
 
 type Config struct {

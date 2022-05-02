@@ -3,8 +3,8 @@ package exec
 import (
 	"github.com/pkg/errors"
 
-	"github.com/noirbizarre/gonja/config"
-	"github.com/noirbizarre/gonja/nodes"
+	"github.com/jmolinski/gosible-templates/config"
+	"github.com/jmolinski/gosible-templates/nodes"
 )
 
 type EvalConfig struct {

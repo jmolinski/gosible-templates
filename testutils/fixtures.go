@@ -2,13 +2,13 @@ package testutils
 
 import (
 	"fmt"
+	gojinja2 "github.com/jmolinski/gosible-templates"
 	"sort"
 
 	"strings"
 	"time"
 
-	"github.com/noirbizarre/gonja"
-	"github.com/noirbizarre/gonja/exec"
+	"github.com/jmolinski/gosible-templates/exec"
 )
 
 var adminList = []string{"user2"}
@@ -67,7 +67,7 @@ func (p *post) String() string {
  * End setup sandbox
  */
 
-var Fixtures = gonja.Context{
+var Fixtures = gojinja2.Context{
 	"number": 11,
 	"simple": map[string]interface{}{
 		"number":                   42,
@@ -173,7 +173,7 @@ Yep!`,
 		},
 		"is_admin": isAdmin,
 		"post": post{
-			Text:    "<h2>Hello!</h2><p>Welcome to my new blog page. I'm using gonja which supports {{ variables }} and {% tags %}.</p>",
+			Text:    "<h2>Hello!</h2><p>Welcome to my new blog page. I'm using gojinja2 which supports {{ variables }} and {% tags %}.</p>",
 			Created: time2,
 		},
 		"comments": []*comment{
@@ -183,7 +183,7 @@ Yep!`,
 					Validated: true,
 				},
 				Date: time1,
-				Text: "\"gonja is nice!\"",
+				Text: "\"gojinja2 is nice!\"",
 			},
 			&comment{
 				Author: &user{
@@ -209,7 +209,7 @@ Yep!`,
 					Validated: true,
 				},
 				Date: time2,
-				Text: "\"gonja is nice!\"",
+				Text: "\"gojinja2 is nice!\"",
 			},
 			&comment{
 				Author: &user{

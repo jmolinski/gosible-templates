@@ -1,4 +1,4 @@
-module github.com/noirbizarre/gonja
+module github.com/jmolinski/gosible-templates
 
 go 1.14
 

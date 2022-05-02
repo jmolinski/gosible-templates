@@ -1,16 +1,16 @@
 package time_test
 
 import (
+	gojinja2 "github.com/jmolinski/gosible-templates"
 	"testing"
 
 	arrow "github.com/bmuller/arrow/lib"
 
-	"github.com/noirbizarre/gonja"
-	"github.com/noirbizarre/gonja/ext/time"
-	tu "github.com/noirbizarre/gonja/testutils"
+	"github.com/jmolinski/gosible-templates/ext/time"
+	tu "github.com/jmolinski/gosible-templates/testutils"
 )
 
-func Env(root string) *gonja.Environment {
+func Env(root string) *gojinja2.Environment {
 	env := tu.TestEnv(root)
 	env.Statements.Update(time.Statements)
 	cfg := time.NewConfig()

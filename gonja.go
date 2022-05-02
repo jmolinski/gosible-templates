@@ -1,9 +1,9 @@
-package gonja
+package gojinja2
 
 import (
-	"github.com/noirbizarre/gonja/config"
-	"github.com/noirbizarre/gonja/exec"
-	"github.com/noirbizarre/gonja/loaders"
+	"github.com/jmolinski/gosible-templates/config"
+	"github.com/jmolinski/gosible-templates/exec"
+	"github.com/jmolinski/gosible-templates/loaders"
 )
 
 var (

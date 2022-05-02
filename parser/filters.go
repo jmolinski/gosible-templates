@@ -4,8 +4,8 @@ import (
 	// "fmt"
 
 	// "github.com/juju/errors"
-	"github.com/noirbizarre/gonja/nodes"
-	"github.com/noirbizarre/gonja/tokens"
+	"github.com/jmolinski/gosible-templates/nodes"
+	"github.com/jmolinski/gosible-templates/tokens"
 )
 
 // FilterFunction is the type filter functions must fulfil

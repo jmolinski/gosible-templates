@@ -3,16 +3,16 @@ package statements
 import (
 	// "bytes"
 
-	// "github.com/noirbizarre/gonja/exec"
+	// "github.com/jmolinski/gosible-templates/exec"
 	"fmt"
 	"strings"
 
 	"github.com/pkg/errors"
 
-	"github.com/noirbizarre/gonja/exec"
-	"github.com/noirbizarre/gonja/nodes"
-	"github.com/noirbizarre/gonja/parser"
-	"github.com/noirbizarre/gonja/tokens"
+	"github.com/jmolinski/gosible-templates/exec"
+	"github.com/jmolinski/gosible-templates/nodes"
+	"github.com/jmolinski/gosible-templates/parser"
+	"github.com/jmolinski/gosible-templates/tokens"
 )
 
 type FilterStmt struct {
