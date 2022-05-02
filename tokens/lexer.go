@@ -2,26 +2,21 @@ package tokens
 
 import (
 	"fmt"
-	// "encoding/json"
+	gojinja2 "github.com/jmolinski/gosible-templates"
+	"github.com/jmolinski/gosible-templates/config"
 	"regexp"
-	// "strconv"
 	"strings"
 	"unicode"
 	"unicode/utf8"
-
-	"github.com/jmolinski/gosible-templates/config"
 )
 
-// EOF is an arbitraty value for End Of File
+// EOF is an arbitrary value for End Of File
 const rEOF = -1
-const re_ENDRAW = `%s\s*%s`
 
 var escapedStrings = map[string]string{
 	`\"`: `"`,
 	`\'`: `'`,
 }
-
-// var pattern = regexp.MustCompile(`(?m)(?P<key>\w+):\s+(?P<value>\w+)$`)
 
 // lexFn represents the state of the scanner
 // as a function that returns the next state.
@@ -29,40 +24,40 @@ type lexFn func() lexFn
 
 // Lexer holds the state of the scanner.
 type Lexer struct {
-	Input string // the string being scanned.
-	Start int    // start position of this item.
-	Pos   int    // current position in the input.
-	Width int    // width of last rune read from input.
-	Line  int    // Current line in the input
-	Col   int    // Current position in the line
-	// Position Position // Current lexing position in the input
+	Input         string         // the string being scanned.
+	Start         int            // start position of this item.
+	Pos           int            // current position in the input.
+	Width         int            // width of last rune read from input.
+	Line          int            // Current line in the input
+	Col           int            // Current position in the line
 	Config        *config.Config // The lexer configuration
-	Tokens        chan *Token    // channel of scanned tokens.
+	Tokens        []*Token       // slice of scanned tokens.
 	delimiters    []rune
 	RawStatements rawStmt
 	rawEnd        *regexp.Regexp
 }
 
-// TODO: set from env
+// TODO gosible: set from env
 type rawStmt map[string]*regexp.Regexp
 
 // NewLexer creates a new scanner for the input string.
-func NewLexer(input string) *Lexer {
-	cfg := config.DefaultConfig
+func NewLexer(input string, cfg *config.Config) *Lexer {
+	// Rewritten tokens.NewLexer to use custom config.
 	return &Lexer{
 		Input:  input,
-		Tokens: make(chan *Token),
+		Tokens: make([]*Token, 0, 0),
 		Config: cfg,
-		RawStatements: rawStmt{
+		RawStatements: map[string]*regexp.Regexp{
 			"raw":     regexp.MustCompile(fmt.Sprintf(`%s\s*endraw`, cfg.BlockStartString)),
 			"comment": regexp.MustCompile(fmt.Sprintf(`%s\s*endcomment`, cfg.BlockStartString)),
 		},
 	}
 }
 
-func Lex(input string) *Stream {
-	l := NewLexer(input)
-	go l.Run()
+func Lex(input string, env *gojinja2.Environment) *Stream {
+	// Rewritten tokens.Lex to use custom config.
+	l := NewLexer(input, env.Config)
+	l.Run()
 	return NewStream(l.Tokens)
 }
 
@@ -70,11 +65,11 @@ func Lex(input string) *Stream {
 // by passing back a nil pointer that will be the next
 // state, terminating Lexer.Run.
 func (l *Lexer) errorf(format string, args ...interface{}) lexFn {
-	l.Tokens <- &Token{
+	l.Tokens = append(l.Tokens, &Token{
 		Type: Error,
-		Val:  fmt.Sprintf(format, args...),
 		Pos:  l.Pos,
-	}
+		Val:  fmt.Sprintf(format, args...),
+	})
 	return nil
 }
 
@@ -97,7 +92,6 @@ func (l *Lexer) Run() {
 	for state := l.lexData; state != nil; {
 		state = state()
 	}
-	close(l.Tokens) // No more tokens will be delivered.
 }
 
 // next returns the next rune in the input.
@@ -126,13 +120,13 @@ func (l *Lexer) processAndEmit(t Type, fn func(string) string) {
 	if fn != nil {
 		val = fn(val)
 	}
-	l.Tokens <- &Token{
+	l.Tokens = append(l.Tokens, &Token{
 		Type: t,
 		Val:  val,
 		Pos:  l.Start,
 		Line: line,
 		Col:  col,
-	}
+	})
 	l.Start = l.Pos
 }
 
@@ -322,22 +316,15 @@ func (l *Lexer) lexExpression() lexFn {
 				return l.lexVariableEnd
 			}
 
-			// if this is the rightDelim, but we are expecting the next char as a delimiter
-			// then skip marking this as rightDelim.  This allows us to have, eg, '}}' as
-			// part of a literal inside a var block.
-			// if strings.HasPrefix(l.input[l.pos:], l.rightDelim) && !l.shouldExpectDelim(l.peek()) {
-			// 	l.pos += Pos(len(l.rightDelim))
-			// 	l.emitRight()
-			// 	return lexText
-			// }
-
 			if l.hasPrefix(l.Config.BlockEndString) {
 				return l.lexBlockEnd
 			}
 		}
 
 		r := l.next()
-		// remaining := l.Input[l.Pos:]
+		if r == rEOF {
+			break
+		}
 		switch {
 		case isSpace(r):
 			return l.lexSpace
@@ -355,10 +342,6 @@ func (l *Lexer) lexExpression() lexFn {
 			l.emit(Comma)
 		case '|':
 			l.emit(Pipe)
-			// if l.accept("|") {
-			// 	l.emit(Or)
-			// } else {
-			// }
 		case '+':
 			l.emit(Add)
 		case '-':
@@ -410,12 +393,6 @@ func (l *Lexer) lexExpression() lexFn {
 				// l.emit(Not)
 				l.errorf(`Unexpected "!"`)
 			}
-		// case '&':
-		// 	if l.accept("&") {
-		// 		l.emit(And)
-		// 	} else {
-		// 		return nil
-		// 	}
 		case '=':
 			if l.accept("=") {
 				l.emit(Eq)
@@ -466,7 +443,6 @@ func (l *Lexer) nextIdentifier() string {
 			// absorb.
 		default:
 			l.backup()
-			// l.emit(Name)
 			return l.Current()
 		}
 	}
@@ -520,11 +496,6 @@ func (l *Lexer) lexString() lexFn {
 // isSpace reports whether r is a space character.
 func isSpace(r rune) bool {
 	return r == ' ' || r == '\t'
-}
-
-// isEndOfLine reports whether r is an end-of-line character.
-func isEndOfLine(r rune) bool {
-	return r == '\r' || r == '\n'
 }
 
 // isAlphaNumeric reports whether r is an alphabetic, digit, or underscore.
