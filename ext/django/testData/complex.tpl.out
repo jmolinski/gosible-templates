@@ -9,7 +9,7 @@
 <body>
 	<h1>Blogpost</h1>
 	<div id="content">
-		<h2>Hello!</h2><p>Welcome to my new blog page. I'm using gonja which supports {{ variables }} and {% tags %}.</p>
+		<h2>Hello!</h2><p>Welcome to my new blog page. I'm using gojinja2 which supports {{ variables }} and {% tags %}.</p>
 	</div>
 
 	<h1>Comments</h1>
@@ -23,7 +23,7 @@
 		
 
 		<p>Written 2014-06-10 15:30:15 +0000 UTC</p>
-		<p>&quot;gonja is nice!&quot;</p>
+		<p>&quot;gojinja2 is nice!&quot;</p>
 	
 		<h2>2. Comment (2 comments left)</h2>
 		<p>From: user2 (validated)</p>

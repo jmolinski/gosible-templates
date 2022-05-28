@@ -1,13 +1,14 @@
 package django_test
 
 import (
+	gojinja2 "github.com/jmolinski/gosible-templates"
 	"testing"
 
 	"github.com/jmolinski/gosible-templates/ext/django"
 	tu "github.com/jmolinski/gosible-templates/testutils"
 )
 
-func Env(root string) *gonja.Environment {
+func Env(root string) *gojinja2.Environment {
 	env := tu.TestEnv(root)
 	env.Filters.Update(django.Filters)
 	env.Statements.Update(django.Statements)
