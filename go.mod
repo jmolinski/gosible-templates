@@ -13,4 +13,5 @@ require (
 	github.com/sirupsen/logrus v1.3.0
 	github.com/stretchr/testify v1.2.2
 	github.com/x-cray/logrus-prefixed-formatter v0.5.2
+	golang.org/x/sys v0.0.0-20220520151302-bc2c85ada10a // indirect
 )
