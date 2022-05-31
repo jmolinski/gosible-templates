@@ -17,13 +17,15 @@ var (
 
 type Evaluator struct {
 	*EvalConfig
-	Ctx *Context
+	Ctx          *Context
+	VariablesEnv map[string]interface{}
 }
 
 func (r *Renderer) Evaluator() *Evaluator {
 	return &Evaluator{
-		EvalConfig: r.EvalConfig,
-		Ctx:        r.Ctx,
+		EvalConfig:   r.EvalConfig,
+		Ctx:          r.Ctx,
+		VariablesEnv: r.VariablesEnv,
 	}
 }
 

@@ -484,7 +484,7 @@ func filterMap(e *exec.Evaluator, in *exec.Value, params *exec.VarArgs) *exec.Va
 			}
 		}
 		if len(filter) > 0 {
-			val = e.ExecuteFilterByName(filter, val, exec.NewVarArgs())
+			val = e.ExecuteFilterByName(filter, val, exec.NewVarArgs(e.VariablesEnv))
 		}
 		out = append(out, val)
 		return true

@@ -11,12 +11,14 @@ import (
 type VarArgs struct {
 	Args   []*Value
 	KwArgs map[string]*Value
+	Env    map[string]interface{}
 }
 
-func NewVarArgs() *VarArgs {
+func NewVarArgs(namesEnv map[string]interface{}) *VarArgs {
 	return &VarArgs{
 		Args:   []*Value{},
 		KwArgs: map[string]*Value{},
+		Env:    namesEnv,
 	}
 }
 

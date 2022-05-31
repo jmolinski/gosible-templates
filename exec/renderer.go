@@ -33,23 +33,25 @@ func (ts *TrimState) TrimBlocks(r rune) bool {
 // Renderer is a node visitor in charge of rendering
 type Renderer struct {
 	*EvalConfig
-	Ctx      *Context
-	Template *Template
-	Root     *nodes.Template
-	Out      *strings.Builder
-	Trim     *TrimState
+	Ctx          *Context
+	Template     *Template
+	Root         *nodes.Template
+	Out          *strings.Builder
+	Trim         *TrimState
+	VariablesEnv map[string]interface{}
 }
 
 // NewRenderer initialize a new renderer
-func NewRenderer(ctx *Context, out *strings.Builder, cfg *EvalConfig, tpl *Template) *Renderer {
+func NewRenderer(ctx *Context, out *strings.Builder, cfg *EvalConfig, tpl *Template, namesEnv map[string]interface{}) *Renderer {
 	var buffer strings.Builder
 	r := &Renderer{
-		EvalConfig: cfg,
-		Ctx:        ctx,
-		Template:   tpl,
-		Root:       tpl.Root,
-		Out:        out,
-		Trim:       &TrimState{Buffer: &buffer},
+		EvalConfig:   cfg,
+		Ctx:          ctx,
+		Template:     tpl,
+		Root:         tpl.Root,
+		Out:          out,
+		Trim:         &TrimState{Buffer: &buffer},
+		VariablesEnv: namesEnv,
 	}
 	r.Ctx.Set("self", Self(r))
 	return r

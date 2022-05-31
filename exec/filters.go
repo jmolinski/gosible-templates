@@ -68,7 +68,7 @@ func (e *Evaluator) EvaluateFiltered(expr *nodes.FilteredExpression) *Value {
 
 // ExecuteFilter execute a filter node
 func (e *Evaluator) ExecuteFilter(fc *nodes.FilterCall, v *Value) *Value {
-	params := NewVarArgs()
+	params := NewVarArgs(e.VariablesEnv)
 
 	for _, param := range fc.Args {
 		value := e.Eval(param)

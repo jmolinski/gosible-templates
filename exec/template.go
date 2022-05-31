@@ -58,7 +58,7 @@ func (tpl *Template) execute(ctx map[string]interface{}, out io.StringWriter) er
 	exCtx.Update(ctx)
 
 	var builder strings.Builder
-	renderer := NewRenderer(exCtx, &builder, tpl.Env, tpl)
+	renderer := NewRenderer(exCtx, &builder, tpl.Env, tpl, ctx)
 
 	err := renderer.Execute()
 	if err != nil {
